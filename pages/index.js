@@ -3,11 +3,13 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner";
 import Image from "next/image";
+import Card from "@/components/card";
+import { fetchCoffeeStores } from "@/lib/coffee-stores";
 
-export default function Home() {
-  const handleOnBannerBtnClick = () => {
-    console.log("banner btn click");
-  };
+export default function Home(props) {
+  const handleOnBannerBtnClick = () => {};
+
+  console.log(props);
 
   return (
     <div className={styles.container}>
@@ -31,7 +33,43 @@ export default function Home() {
             priority
           />
         </div>
+        {props.coffeeStores.length > 0 ? (
+          <>
+            <h2 className={styles.heading2}>Pau stores</h2>
+            <div className={styles.cardLayout}>
+              {props.coffeeStores.map((coffeeStore) => {
+                return (
+                  <Card
+                    key={coffeeStore.id}
+                    className={styles.card}
+                    name={coffeeStore.name}
+                    imgUrl={
+                      coffeeStore.imgUrl ||
+                      "https://images.unsplash.com/photo-1498804103079-a6351b050096?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2468&q=80"
+                    }
+                    href={`/coffee-store/${coffeeStore.id}`}
+                  />
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <h4 className={styles.heading2}>
+            No stores found right now, try refreshing the page or come back
+            later please...
+          </h4>
+        )}
       </main>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const coffeeStores = await fetchCoffeeStores();
+
+  return {
+    props: {
+      coffeeStores,
+    },
+  };
 }
