@@ -9,8 +9,6 @@ import { fetchCoffeeStores } from "@/lib/coffee-stores";
 export default function Home(props) {
   const handleOnBannerBtnClick = () => {};
 
-  console.log(props);
-
   return (
     <div className={styles.container}>
       <Head>
