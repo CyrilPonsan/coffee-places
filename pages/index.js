@@ -8,11 +8,12 @@ import { fetchCoffeeStores } from "@/lib/coffee-stores";
 import useTrackLocation from "@/hooks/use-track-location";
 
 export default function Home(props) {
-  const { latLong, locationErrorMsg, handleTrackLocation } = useTrackLocation();
+  const { latLong, locationErrorMsg, isFindingLocation, handleTrackLocation } =
+    useTrackLocation();
 
   const handleOnBannerBtnClick = () => {
     handleTrackLocation();
-    console.log({ latLong });
+    console.log({ latLong, locationErrorMsg });
   };
 
   return (
@@ -25,7 +26,7 @@ export default function Home(props) {
       </Head>
       <main className={styles.main}>
         <Banner
-          buttonText="View stores nearby"
+          buttonText={isFindingLocation ? "Locating..." : "View stores nearby"}
           handleOnClick={handleOnBannerBtnClick}
         />
         <div className={styles.heroImage}>
