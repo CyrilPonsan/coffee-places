@@ -5,9 +5,15 @@ import Banner from "@/components/banner";
 import Image from "next/image";
 import Card from "@/components/card";
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
+import useTrackLocation from "@/hooks/use-track-location";
 
 export default function Home(props) {
-  const handleOnBannerBtnClick = () => {};
+  const { latLong, locationErrorMsg, handleTrackLocation } = useTrackLocation();
+
+  const handleOnBannerBtnClick = () => {
+    handleTrackLocation();
+    console.log({ latLong });
+  };
 
   return (
     <div className={styles.container}>
