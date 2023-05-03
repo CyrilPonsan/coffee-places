@@ -33,7 +33,7 @@ export default function Home(props) {
         </div>
         {props.coffeeStores.length > 0 ? (
           <>
-            <h2 className={styles.heading2}>Pau stores</h2>
+            <h2 className={styles.heading2}>Manchester stores</h2>
             <div className={styles.cardLayout}>
               {props.coffeeStores.map((coffeeStore) => {
                 return (
